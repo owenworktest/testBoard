@@ -118,7 +118,7 @@
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script>
     let HJSHOP_API_BOARD = "api/boards";
-
+    let HJSHOP_API_BOARD_DEL = "api/delboard";
     var addBorad = function (data){
         return $.ajax({
             type: "POST",
@@ -128,18 +128,23 @@
     }
     var putBorad = function (id, data){
         return $.ajax({
-            type: "POST",
+            type: "PUT",
             data: data,
-            url: HJSHOP_API_BOARD,
+            url: HJSHOP_API_BOARD + "/" + id,
         });
     }
     var delBorad = function (id){
         return $.ajax({
-            type: "POST",
-            data: data,
-            url: HJSHOP_API_BOARD,
+            type: "DELETE",
+            url: HJSHOP_API_BOARD + "/" + id,
         });
     }
+    // var delBorad = function (id){
+    //     return $.ajax({
+    //         type: "PUT",
+    //         url: HJSHOP_API_BOARD_DEL + "/" + id,
+    //     });
+    // }
     $(document).ready(function () {
         $("#title").val("testtilte");
         $("#desc").val("testdesc");
@@ -166,19 +171,40 @@
             data = form.serialize();
             if($("#no").val() == "" || $("#no").val() == undefined){
                 alert("項次為必填值");
+                return false;
             }
-            // addBorad(data).done(function(result) {
-            //     console.log(result);
-            //     alert("新增成功");
-            //     location.reload();
-            // }).fail(function(XMLHttpRequest) {
-            //     console.log("url: " + this.url);
-            //     console.log(XMLHttpRequest);
-            //     // if (XMLHttpRequest.status == 404) {
-            //     //     swal.fire(XMLHttpRequest.responseText);
-            //     // }
-            //     //location.reload();
-            // });
+            id = $("#no").val();
+            putBorad(id, data).done(function(result) {
+                console.log(result);
+
+                // location.reload();
+            }).fail(function(XMLHttpRequest) {
+                console.log("url: " + this.url);
+                console.log(XMLHttpRequest);
+                // if (XMLHttpRequest.status == 404) {
+                //     swal.fire(XMLHttpRequest.responseText);
+                // }
+                //location.reload();
+            });
+        });
+        $("#delbtn").click(function (e) {
+            if($("#no").val() == "" || $("#no").val() == undefined){
+                alert("項次為必填值");
+                return false;
+            }
+            id = $("#no").val();
+            delBorad(id).done(function(result) {
+                console.log(result);
+                alert("刪除成功");
+                location.reload();
+            }).fail(function(XMLHttpRequest) {
+                console.log("url: " + this.url);
+                console.log(XMLHttpRequest);
+                // if (XMLHttpRequest.status == 404) {
+                //     swal.fire(XMLHttpRequest.responseText);
+                // }
+                //location.reload();
+            });
         });
     });
   </script>

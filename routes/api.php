@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('boards', BoardController::class);
+Route::apiResource('boards', BoardController::class);
+// Route::put('/delboard/{board}', [BoardController::class, 'delete']);

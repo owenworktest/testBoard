@@ -76,8 +76,20 @@ class BoardController extends Controller
     public function update(Request $request, Board $board)
     {
         //
+        // $board->delete();
+        $arr = $request->toArray();
+        //Board
+        return $board;
     }
 
+    // public function delete(Request $request, Board $board)
+    // {
+    //     //
+    //     // $board->delete();
+    //     $arr = $request->toArray();
+    //     //Board
+    //     return $board;
+    // }
     /**
      * Remove the specified resource from storage.
      *
@@ -87,5 +99,7 @@ class BoardController extends Controller
     public function destroy(Board $board)
     {
         //
+        $board->delete();
+        return "DEL OK";
     }
 }
