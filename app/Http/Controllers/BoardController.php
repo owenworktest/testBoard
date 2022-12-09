@@ -6,12 +6,23 @@ use App\Models\Board;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Info(title="My First API", version="0.1")
+ */
 class BoardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Get(
+     *     path="/api/Board",
+     *     @OA\Response(response="200", description="An example endpoint")
+     * )
+     *
      */
     public function index()
     {
@@ -41,7 +52,8 @@ class BoardController extends Controller
     {
         //
         Board::create($request->toArray());
-        return response("OK", Response::HTTP_OK);
+        $result = ["code"=>"1"];
+        return response($result, Response::HTTP_OK);
     }
 
     /**
@@ -100,6 +112,7 @@ class BoardController extends Controller
     {
         //
         $board->delete();
-        return "DEL OK";
+        $result = ["code"=>"1"];
+        return response($result, Response::HTTP_OK);
     }
 }
